@@ -11,6 +11,10 @@ namespace Fieldr.Application.Common.Interfaces
 
         DbSet<TodoItem> TodoItems { get; set; }
 
+        DbSet<Field> Fields { get; set; }
+
+        DbSet<FieldRecord> FieldRecords { get; set; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

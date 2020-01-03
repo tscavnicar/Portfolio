@@ -31,6 +31,12 @@ namespace Fieldr.Infrastructure.Persistence
 
         public DbSet<TodoItem> TodoItems { get; set; }
 
+        public DbSet<Field> Fields { get; set; }
+
+        public DbSet<FieldRecord> FieldRecords { get; set; }
+
+
+
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
