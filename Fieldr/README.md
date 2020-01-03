@@ -1,4 +1,4 @@
- <img align="left" width="116" height="116" src="https://github.com/tscavnicar/Portfolio/blob/master/Fieldr/logo/fieldr-logo.png" />
+ <img width="100%" height="100%" src="https://github.com/tscavnicar/Portfolio/blob/master/Fieldr/logo/fieldr-logo.png" />
  
  # Fieldr - a field record making app for farmers
 
