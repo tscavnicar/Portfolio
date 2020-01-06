@@ -9,8 +9,8 @@ namespace Fieldr.Domain.Entities
         public Field() => FieldRecords = new HashSet<FieldRecord>();
         public int Id { get; set; }
         public string Name { get; set; }
-        public float Lat { get; set; }
-        public float Lng { get; set; }
+        public double Lat { get; set; }
+        public double Lng { get; set; }
         public string wktEPSG4326 { get; set; }
 
         public ICollection<FieldRecord> FieldRecords { get; set; }
