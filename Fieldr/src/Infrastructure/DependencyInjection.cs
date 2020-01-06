@@ -32,6 +32,12 @@ namespace Fieldr.Infrastructure
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+
+            if (environment.IsDevelopment())
+            {
+                services.AddTransient<SampleDataSeeder>();
+            }
+
             if (environment.IsEnvironment("Test"))
             {
                 services.AddIdentityServer()
