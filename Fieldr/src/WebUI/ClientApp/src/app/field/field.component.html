@@ -41,19 +41,16 @@
         <li class="list-group-item" *ngFor="let item of selectedList.fieldRecords; index as i">
           <div class="d-flex">
             <div class="flex-fill">
-              <input id="{{ 'itemTitle' + i }}" *ngIf="item == selectedItem" type="text"
-                class="form-control item-input-control" [(ngModel)]="item.note" (keyup.enter)="updateItem(item, true)"
-                (blur)="updateItem(item)" autofocus="autofocus" />
-              <div class="todo-item-title form-control item-input-control" *ngIf="item != selectedItem"
-                (click)="editItem(item, 'itemTitle' + i)">
+              <div class="todo-item-title" (click)="showItemDetailsModal(itemDetailsModalTemplate, item)" style="cursor: pointer;">
                 <span>{{ item.note }}</span>
               </div>
+           
             </div>
             <div class="todo-item-commands">
-              <button *ngIf="item.id != 0" (click)="showItemDetailsModal(itemDetailsModalTemplate, item)"
+              <!--<button *ngIf="item.id != 0" (click)="showItemDetailsModal(itemDetailsModalTemplate, item)"
                 class="btn btn-default btn-xs" role="button">
                 <fa-icon [icon]="faEllipsisH"></fa-icon>
-              </button>
+              </button>-->
             </div>
           </div>
         </li>
@@ -108,18 +105,6 @@
   </div>
   <div class="modal-body">
     <div class="form">
-      <div class="form-group">
-        <label for="list">List</label>
-        <select class="form-control" [(ngModel)]="itemDetailsEditor.listId">
-          <option [ngValue]="list.id" *ngFor="let list of vm.lists">{{ list.name }}</option>
-        </select>
-      </div>
-      <!--<div class="form-group">
-        <label for="priority">Priority</label>
-        <select class="form-control" [(ngModel)]="itemDetailsEditor.priority">
-          <option [ngValue]="level.value" *ngFor="let level of vm.priorityLevels">{{ level.name }}</option>
-        </select>
-      </div>-->
       <div class="form-group">
         <label for="note">Note</label>
         <textarea id="note" class="form-control" rows="3" [(ngModel)]="itemDetailsEditor.note"></textarea>

@@ -131,32 +131,31 @@ export class FieldComponent {
     this.itemDetailsModalRef = this.modalService.show(template);
   }
 
-  //updateItemDetails(): void {
-  //  this.itemsClient.updateItemDetails(this.selectedItem.id, UpdateFieldRecordDetailCommand.fromJS(this.itemDetailsEditor))
-  //    .subscribe(
-  //      () => {
-  //        if (this.selectedItem.listId != this.itemDetailsEditor.listId) {
-  //          this.selectedList.items = this.selectedList.items.filter(i => i.id != this.selectedItem.id)
-  //          let listIndex = this.vm.lists.findIndex(l => l.id == this.itemDetailsEditor.listId);
-  //          this.selectedItem.listId = this.itemDetailsEditor.listId;
-  //          this.vm.lists[listIndex].items.push(this.selectedItem);
-  //        }
+  updateItemDetails(): void {
 
-  //        this.selectedItem.priority = this.itemDetailsEditor.priority;
-  //        this.selectedItem.note = this.itemDetailsEditor.note;
-  //        this.itemDetailsModalRef.hide();
-  //        this.itemDetailsEditor = {};
-  //      },
-  //      error => console.error(error)
-  //    );
-  //}
+    this.itemsClient.update(this.selectedItem.id, UpdateFieldRecordCommand.fromJS(this.itemDetailsEditor))
+      .subscribe(
+        () => {
+      
+          console.log(this.selectedItem);
+
+          this.selectedItem.note = this.itemDetailsEditor.note;
+          this.itemDetailsModalRef.hide();
+          this.itemDetailsEditor = {};
+
+          this.addItem();
+
+          console.log('Update succeeded.')
+        },
+        error => console.error(error)
+      );
+  }
 
   addItem() {
     let item = FieldRecordDto.fromJS({
       id: 0,
       listId: this.selectedList.id,
-      note: '',
-      done: false
+      note: ''
     });
 
     this.selectedList.fieldRecords.push(item);
