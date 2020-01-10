@@ -123,6 +123,7 @@ export class FieldComponent {
   // Items
 
   showItemDetailsModal(template: TemplateRef<any>, item: FieldRecordDto): void {
+    setTimeout(() => document.getElementById('note').focus(), 100);
     this.selectedItem = item;
     this.itemDetailsEditor = {
       ...this.selectedItem
@@ -131,19 +132,46 @@ export class FieldComponent {
     this.itemDetailsModalRef = this.modalService.show(template);
   }
 
-  updateItemDetails(): void {
+  showNewItemDetailsModal(template: TemplateRef<any>): void {
+    setTimeout(() => document.getElementById('note').focus(), 100);
+    this.itemDetailsEditor = {};      
+    this.itemDetailsModalRef = this.modalService.show(template);
+  }
 
+  createItemDetails(): void {
+       
+    this.itemsClient.create(CreateFieldRecordCommand.fromJS({ note: this.itemDetailsEditor.note, listId: this.selectedList.id }))
+      .subscribe(
+        result => {
+          console.log("this.itemDetailsEditor.note:", this.itemDetailsEditor.note);
+
+          this.itemDetailsModalRef.hide();
+          
+          let item = FieldRecordDto.fromJS({
+            id: result,
+            listId: this.selectedList.id,
+            note: this.itemDetailsEditor.note
+          });
+
+          this.selectedList.fieldRecords.push(item);
+
+          this.itemDetailsEditor = {};
+
+        },
+        error => console.error(error)
+      );
+  }
+
+  updateItemDetails(): void {
     this.itemsClient.update(this.selectedItem.id, UpdateFieldRecordCommand.fromJS(this.itemDetailsEditor))
       .subscribe(
         () => {
-      
+
           console.log(this.selectedItem);
 
           this.selectedItem.note = this.itemDetailsEditor.note;
           this.itemDetailsModalRef.hide();
           this.itemDetailsEditor = {};
-
-          this.addItem();
 
           console.log('Update succeeded.')
         },
@@ -169,13 +197,6 @@ export class FieldComponent {
   }
 
   updateItem(item: FieldRecordDto, pressedEnter: boolean = false): void {
-    let isNewItem = item.id == 0;
-
-    if (!item.note.trim()) {
-      this.deleteItem(item);
-      return;
-    }
-
     if (item.id == 0) {
       this.itemsClient.create(CreateFieldRecordCommand.fromJS({ ...item, listId: this.selectedList.id }))
         .subscribe(
@@ -193,10 +214,6 @@ export class FieldComponent {
     }
 
     this.selectedItem = null;
-
-    if (isNewItem && pressedEnter) {
-      this.addItem();
-    }
   }
 
   // Delete item
