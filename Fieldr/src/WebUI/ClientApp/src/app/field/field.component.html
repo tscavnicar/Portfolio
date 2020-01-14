@@ -44,6 +44,8 @@
               <div class="todo-item-title" (click)="showItemDetailsModal(itemDetailsModalTemplate, item)" style="cursor: pointer;">
                 <span>{{ item.note }}</span>
               </div>
+              <hr/>
+              <img class="img-fluid" src="{{item.photo}}" alt="No photo url" />
             </div>
             
           </div>
@@ -102,6 +104,10 @@
       <div class="form-group">
         <label for="note">Note</label>
         <textarea id="note" class="form-control" rows="3" [(ngModel)]="itemDetailsEditor.note"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="note">Photo</label>
+        <input id="photo" class="form-control-file" type="file" name="pic" accept="image/*" (change)="onFileUpload($event)">
       </div>
     </div>
     <div *ngIf="debug">

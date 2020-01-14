@@ -11,5 +11,7 @@ namespace Fieldr.Application.FieldLists.Queries.GetFields
         public long Id { get; set; }
         public int FieldId { get; set; }
         public string Note { get; set; }
+        public string Photo { get; set; }
+
     }
 }

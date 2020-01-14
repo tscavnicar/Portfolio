@@ -1,5 +1,5 @@
 import { Component, TemplateRef } from '@angular/core';
-import { FieldRecordsClient, CreateFieldRecordCommand, FieldRecordDto, UpdateFieldRecordCommand, FieldVm, FieldListsClient, FieldListDto, CreateFieldListCommand, UpdateFieldListCommand, /*UpdateTodoItemDetailCommand*/ } from '../fieldr-api';
+import { FieldRecordsClient, CreateFieldRecordCommand, FieldRecordDto, UpdateFieldRecordCommand, FieldVm, FieldListsClient, FieldListDto, CreateFieldListCommand, UpdateFieldListCommand, /*UpdateTodoItemDetailCommand*/ } from '../Fieldr-api';
 import { faPlus, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -16,6 +16,8 @@ export class FieldComponent {
 
   selectedList: FieldListDto;
   selectedItem: FieldRecordDto;
+  photo: string;
+  photoName: string;
 
   newListEditor: any = {};
   listOptionsEditor: any = {};
@@ -134,23 +136,43 @@ export class FieldComponent {
 
   showNewItemDetailsModal(template: TemplateRef<any>): void {
     setTimeout(() => document.getElementById('note').focus(), 100);
-    this.itemDetailsEditor = {};      
+    this.itemDetailsEditor = {};
     this.itemDetailsModalRef = this.modalService.show(template);
   }
 
+
+  onFileUpload(event) {
+    console.log("img:", event.target.files[0]);
+
+    const fileReader: FileReader = new FileReader();
+    fileReader.readAsDataURL(event.target.files[0]);
+
+    this.photoName = event.target.files[0].name;
+    console.log("photoName:", this.photoName);
+
+    fileReader.onload = (event: any) => {
+      this.photo = event.target.result;
+      
+      console.log("img:", event.target.result);
+    };
+
+  }
+
   createItemDetails(): void {
-       
-    this.itemsClient.create(CreateFieldRecordCommand.fromJS({ note: this.itemDetailsEditor.note, listId: this.selectedList.id }))
+    //console.log("photo:", this.photo);
+
+
+
+    this.itemsClient.create(CreateFieldRecordCommand.fromJS({ listId: this.selectedList.id, note: this.itemDetailsEditor.note, photoBase64: this.photo, photoName: this.photoName }))
       .subscribe(
         result => {
-          console.log("this.itemDetailsEditor.note:", this.itemDetailsEditor.note);
-
           this.itemDetailsModalRef.hide();
-          
+
           let item = FieldRecordDto.fromJS({
             id: result,
             listId: this.selectedList.id,
-            note: this.itemDetailsEditor.note
+            note: this.itemDetailsEditor.note,
+            photo: this.photo
           });
 
           this.selectedList.fieldRecords.push(item);

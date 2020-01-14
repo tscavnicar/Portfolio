@@ -698,6 +698,10 @@
           "note": {
             "type": "string",
             "nullable": true
+          },
+          "photo": {
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -734,6 +738,14 @@
             "format": "int32"
           },
           "note": {
+            "type": "string",
+            "nullable": true
+          },
+          "photoBase64": {
+            "type": "string",
+            "nullable": true
+          },
+          "photoName": {
             "type": "string",
             "nullable": true
           }

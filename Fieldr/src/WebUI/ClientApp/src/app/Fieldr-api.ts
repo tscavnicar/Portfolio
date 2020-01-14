@@ -1083,6 +1083,7 @@ export class FieldRecordDto implements IFieldRecordDto {
     id?: number;
     fieldId?: number;
     note?: string | undefined;
+    photo?: string | undefined;
 
     constructor(data?: IFieldRecordDto) {
         if (data) {
@@ -1098,6 +1099,7 @@ export class FieldRecordDto implements IFieldRecordDto {
             this.id = _data["id"];
             this.fieldId = _data["fieldId"];
             this.note = _data["note"];
+            this.photo = _data["photo"];
         }
     }
 
@@ -1113,6 +1115,7 @@ export class FieldRecordDto implements IFieldRecordDto {
         data["id"] = this.id;
         data["fieldId"] = this.fieldId;
         data["note"] = this.note;
+        data["photo"] = this.photo;
         return data; 
     }
 }
@@ -1121,6 +1124,7 @@ export interface IFieldRecordDto {
     id?: number;
     fieldId?: number;
     note?: string | undefined;
+    photo?: string | undefined;
 }
 
 export class CreateFieldListCommand implements ICreateFieldListCommand {
@@ -1202,6 +1206,8 @@ export interface IUpdateFieldListCommand {
 export class CreateFieldRecordCommand implements ICreateFieldRecordCommand {
     listId?: number;
     note?: string | undefined;
+    photoBase64?: string | undefined;
+    photoName?: string | undefined;
 
     constructor(data?: ICreateFieldRecordCommand) {
         if (data) {
@@ -1216,6 +1222,8 @@ export class CreateFieldRecordCommand implements ICreateFieldRecordCommand {
         if (_data) {
             this.listId = _data["listId"];
             this.note = _data["note"];
+            this.photoBase64 = _data["photoBase64"];
+            this.photoName = _data["photoName"];
         }
     }
 
@@ -1230,6 +1238,8 @@ export class CreateFieldRecordCommand implements ICreateFieldRecordCommand {
         data = typeof data === 'object' ? data : {};
         data["listId"] = this.listId;
         data["note"] = this.note;
+        data["photoBase64"] = this.photoBase64;
+        data["photoName"] = this.photoName;
         return data; 
     }
 }
@@ -1237,6 +1247,8 @@ export class CreateFieldRecordCommand implements ICreateFieldRecordCommand {
 export interface ICreateFieldRecordCommand {
     listId?: number;
     note?: string | undefined;
+    photoBase64?: string | undefined;
+    photoName?: string | undefined;
 }
 
 export class UpdateFieldRecordCommand implements IUpdateFieldRecordCommand {
