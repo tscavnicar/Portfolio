@@ -9,7 +9,7 @@ namespace Fieldr.Domain.Entities
     {
         public long Id { get; set; }
         public int FieldId { get; set; }
-        public byte[] Photo { get; set; }
+        public string PhotoUrl { get; set; }
         public string Note { get; set; }
         public Field Field { get; set; }
     }
