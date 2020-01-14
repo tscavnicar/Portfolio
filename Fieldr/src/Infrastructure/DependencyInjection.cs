@@ -4,6 +4,7 @@ using Fieldr.Infrastructure.Files;
 using Fieldr.Infrastructure.Identity;
 using Fieldr.Infrastructure.Persistence;
 using Fieldr.Infrastructure.Services;
+using Fieldr.Infrastructure.Services.AzureStorage;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
@@ -31,7 +32,6 @@ namespace Fieldr.Infrastructure
 
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
 
             if (environment.IsDevelopment())
             {
@@ -72,6 +72,9 @@ namespace Fieldr.Infrastructure
                 services.AddTransient<IDateTime, DateTimeService>();
                 services.AddTransient<IIdentityService, IdentityService>();
                 services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
+
+                services.Configure<StorageAccountSettings>(configuration.GetSection("StorageAccount"));
+                services.AddTransient<IAzureStorageService, AzureStorageService>();
             }
 
             services.AddAuthentication()
