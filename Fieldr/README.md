@@ -8,9 +8,9 @@ This is a solution template for creating a Single Page App (SPA) with Angular 8 
 
 
 ## Technologies
-* .NET Core 3
-* ASP .NET Core 3
-* Entity Framework Core 3
+* .NET Core 3.1
+* ASP .NET Core 3.1
+* Entity Framework Core 3.1
 * Angular 8
 
 ## Getting Started
@@ -18,7 +18,7 @@ This is a solution template for creating a Single Page App (SPA) with Angular 8 
 1. Install the latest [.NET Core SDK](https://dotnet.microsoft.com/download)
 2. Navigate to `src/WebUI` and run `dotnet run` to launch the project
 
-## Overview
+## Solution Arhitecture Overview
 
 ### Domain
 
@@ -36,7 +36,10 @@ This layer contains classes for accessing external resources such as file system
 
 ### WebUI
 
-This layer is a single page application based on Angular 8 and ASP.NET Core 3. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
+This layer is a single page application based on Angular 8 and ASP.NET Core 3.1. This layer depends on both the Application and Infrastructure layers, however, the dependency on Infrastructure is only to support dependency injection. Therefore only *Startup.cs* should reference Infrastructure.
+
+### App Overview
+<img width="100%" height="100%" src="https://github.com/tscavnicar/Portfolio/blob/master/Fieldr/logo/Fieldr%20phone-x.png" />
 
 ## Support
 
